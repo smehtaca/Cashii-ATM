@@ -2,10 +2,16 @@
 
 Team
 --------
+
 Client:
+
 Team Lead: Sameer
+
 Req Engineer:
+
 Dev 1: Aumkar
+
 Dev 2:
+
 Tester:
 
