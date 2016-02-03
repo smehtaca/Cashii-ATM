@@ -3,11 +3,11 @@
 Team
 --------
 
-Client:
+Client: Henry
 
 Team Lead: Sameer
 
-Req Engineer:
+Req Engineer: Rodrigo
 
 Dev 1: Aumkar
 
