@@ -11,7 +11,7 @@ Req Engineer:
 
 Dev 1: Aumkar
 
-Dev 2:
+Dev 2: Alex
 
-Tester:
+Tester: Eric
 
