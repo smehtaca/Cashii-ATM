@@ -3,15 +3,10 @@
 Team
 --------
 
-Client: Henry
-
-Team Lead: Sameer
-
-Req Engineer: Rodrigo
-
-Dev 1: Aumkar
-
-Dev 2: Alex
-
-Tester: Eric
+Client: Henry <br>
+Team Lead: Sameer <br>
+Req Engineer: Rodrigo <br> 
+Dev 1: Aumkar <br>
+Dev 2: Alex <br>
+Tester: Eric <br>
 
