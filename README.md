@@ -1,12 +1,11 @@
 # cps406_s3_group10_w16
 
--------------------------------------------------------------
+---
 ## Project Selected: Innovative Automated Teller Machine(ATM) 
--------------------------------------------------------------
-### Programming Language: Java
-------------------------------------------------------------
-#### Team
----------------------
+## Programming Language: Java
+---
+## Team
+---
 
 Client: Henry <br>
 Team Lead: Sameer <br>
