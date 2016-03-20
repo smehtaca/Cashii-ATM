@@ -5,9 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by aumka on 3/20/2016.
- */
+// @TODO: Re-order code
+
 public class TitleScreenPanel extends JPanel
 {
     BufferedImage img;
