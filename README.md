@@ -1,7 +1,7 @@
 # cps406_s3_group10_w16
 
 #####Project Selected: Innovative Automated Teller Machine(ATM) 
-##### Programming Language: HTML (front-end) /JavaScript (back-end)
+##### Programming Language: Front-End: HTML, JavaScript and CSS Back-End:Java 
 ## Team <br>
 Client: Henry <br>
 Team Lead: Sameer <br>
