@@ -1,0 +1,55 @@
+body{
+  background: #0F705D;
+}
+
+.box{
+
+  list-style-type: none;
+  font-family: 'Karla', sans-serif;
+  font-size: 13px;
+  color: #FFFFFF;
+  text-decoration: none;
+
+  text-align: center;
+  margin: auto;
+  width: 60%;
+  padding-top: 200px;
+}
+
+.form {
+  padding-top: 10px;
+}
+
+input {
+
+  font-family: 'Karla', sans-serif;
+  font-size: 20px;
+
+  display: block;
+  margin: 0 auto 10px auto;
+  padding: 30px 35px;
+  text-align: center;
+  border-radius: 3px;
+
+  background-color: #12836D;
+
+
+  border: 1px;
+}
+
+input:focus{
+  outline:none;
+}
+
+span {
+  padding-top: 20px;
+  color: white;
+  font-size: 35px;
+  transition: transform 1s;
+  transform-origin: 50% 70%;
+}
+
+span:hover{
+  cursor: pointer;
+  transform: rotate(360deg);
+}
