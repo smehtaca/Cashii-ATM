@@ -11,6 +11,10 @@ public class Database
     static final String USER = "firstfrontier";
     static final String PASS = "aAqVDxs4G3";
 
+    int accountNum, accountPIN;
+    String firstName, lastName;
+    double accountBalance;
+
     public Database()
     {
     connect();
@@ -34,8 +38,22 @@ public class Database
             System.out.println("Creating statement...");
             st = con.createStatement();
             System.out.println("Attempting to generate a result set...");
-            ResultSet rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance");
+            ResultSet rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance FROM CashiiDB");
 
+            while (rs.next())
+            {
+                accountNum = rs.getInt("AccountNum");
+                accountPIN = rs.getInt("UserPIN");
+                lastName = rs.getString("LastName");
+                firstName = rs.getString("FirstName");
+                accountBalance = rs.getDouble("UserBalance");
+
+                // DEBUG: Gets user info, however much there is.
+                System.out.print("Account Number: " +accountNum);
+                System.out.print(", User PIN: " +accountPIN);
+                System.out.print(", Name: " +firstName + " " +lastName);
+                System.out.println(", Balance: " +accountBalance);
+            }
         }
         catch (SQLException e1) {
             e1.printStackTrace();
