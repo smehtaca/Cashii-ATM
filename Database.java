@@ -5,8 +5,10 @@ import java.sql.*;
  */
 public class Database
 {
-
+    // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
+
+    // SQL Database info (hosted externally)
     static final String DB_URL = "jdbc:mysql://firstfrontier.site.nfoservers.com:3306/firstfrontier_cashii";
     static final String USER = "firstfrontier";
     static final String PASS = "aAqVDxs4G3";
@@ -34,12 +36,18 @@ public class Database
         System.out.println("Connecting to database...");
 
         try {
+            // Make the connection
             con = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Creating statement...");
+
+            // Create a statement (not for output)
             st = con.createStatement();
+
+            // Make a result set to be read through (contains all the account info)
             System.out.println("Attempting to generate a result set...");
             ResultSet rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance FROM CashiiDB");
 
+            // Go through the result set and grab all columns
             while (rs.next())
             {
                 accountNum = rs.getInt("AccountNum");
