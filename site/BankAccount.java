@@ -26,4 +26,10 @@ public class BankAccount
             return 0; // return 0 if the amount is too big
         return 1;
     }
+
+    // @TODO: Needs to return a full statement to the user
+    void createStatement()
+    {
+
+    }
 }

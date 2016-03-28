@@ -55,9 +55,11 @@ public class Database
                 System.out.println(", Balance: " +accountBalance);
             }
         }
-        catch (SQLException e1) {
-            e1.printStackTrace();
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
+
 }
 
