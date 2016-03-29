@@ -14,16 +14,65 @@
   </head>
 
   <body>
+
+    <script>
+    function myFunction() {
+        var pass1 = document.getElementById("user").value;
+        var pass2 = document.getElementById("pass").value;
+        var ok = true;
+
+        var user = {
+          username: "",
+          password: ""
+        };
+
+        user.username = pass1;
+        user.password = pass2;
+
+        alert("Username: " + user.username + "\nPassword: " + user.password);
+
+        /*
+        jsonfile.writeFile(file, user, function (err) {
+          console.error(err)
+        })
+        */
+
+        //localStorage.setItem('userStorage', JSON.stringify(user));
+
+        return ok;
+
+
+        /*
+        if (pass1 != pass2) {
+            //alert("Passwords Do not match");
+            //document.getElementById("pass").style.borderColor = "#E34234";
+            //document.getElementById("user").style.borderColor = "#E34234";
+            alert("Passwords don't match!");
+            ok = false;
+        }
+        else {
+            alert("Passwords Match!!!");
+        }
+        return ok;
+        */
+    }
+
+    </script>
+
     <div class="box">
       <h1>Cashii Login</h1>
       <div class="form">
-          <input type="text" placeholder="Card Number">
-          <input type="password" placeholder="PIN">
+          <input type="text" placeholder="Card Number" id = "user">
+          <input type="password" placeholder="Password" id = "pass">
+          <form onsubmit="return myFunction()">
       </div>
 
       <div class"button">
-          <a href="html/main.html"><span class="glyphicon glyphicon glyphicon-chevron-right"></span></a>
+          <a href="html/main.html"><input type="submit" value="Submit"><span class="glyphicon glyphicon glyphicon-chevron-right"></span></a>
+
+
       </div>
     </div>
+
   </body>
 </html>
