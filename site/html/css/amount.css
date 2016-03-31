@@ -2,10 +2,10 @@ body{
   background: #0F705D;
 }
 
-.box{
+.box {
 
   list-style-type: none;
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-size: 13px;
   color: #FFFFFF;
   text-decoration: none;
@@ -16,8 +16,34 @@ body{
   padding-top: 200px;
 }
 
-.form {
+.box input:focus {
+  outline: none !important;
+}
+
+.buttons input{
+  float: left;
+  margin: auto 25px 15px auto;
+  text-decoration: none;
+  outline: none;
+
+}
+
+a, a:hover, a:active, a:visited {
+    text-decoration: none !important;
+}
+
+
+.buttons {
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  right: -35.5%
+
+}
+
+.form h1 {
   padding-top: 10px;
+  text-align: inherit;
 }
 
 input {
@@ -26,7 +52,7 @@ input {
   font-size: 20px;
 
   display: block;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 15px auto;
   padding: 30px 35px;
   text-align: center;
   border-radius: 3px;
@@ -39,17 +65,5 @@ input {
 
 input:focus{
   outline:none;
-}
-
-span {
-  padding-top: 20px;
-  color: white;
-  font-size: 35px;
-  transition: transform 1s;
-  transform-origin: 50% 70%;
-}
-
-span:hover{
-  cursor: pointer;
-  transform: rotate(360deg);
+  text-decoration: none;
 }
