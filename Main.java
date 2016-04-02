@@ -5,9 +5,5 @@ public class Main {
         System.out.println("Hello World!");
         database = new Database();
         database.withdraw(987654321, 100, 1); // DEBUG
-        // ACCOUNT TYPES
-        // 0 = CHEQUING
-        // 1 = SAVINGS
-
     }
 }
