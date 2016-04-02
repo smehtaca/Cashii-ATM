@@ -12,7 +12,7 @@ public class BankAccount
     }
 
     // Deposit to account
-    void deposit(int amount)
+    void deposit(int accountNum, int amount)
     {
         accountBalance += amount;
     }

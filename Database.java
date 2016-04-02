@@ -1,10 +1,12 @@
 import java.sql.*;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 /**
  * Created by aumka on 3/27/2016.
  */
-public class Database
-{
+public class Database {
     // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
 
@@ -16,20 +18,20 @@ public class Database
     int accountNum, accountPIN;
     String firstName, lastName;
     double accountBalance;
-
-    public Database()
-    {
-    connect();
-    }
-
-    public void connect(){
     Connection con = null;
     Statement st = null;
+    ResultSet rs = null;
+
+    public Database() {
+        connect();
+    }
+
+    void connect() {
+
 
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Driver is located in src/mysql-connector...
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -38,6 +40,7 @@ public class Database
         try {
             // Make the connection
             con = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection established!");
             System.out.println("Creating statement...");
 
             // Create a statement (not for output)
@@ -45,11 +48,11 @@ public class Database
 
             // Make a result set to be read through (contains all the account info)
             System.out.println("Attempting to generate a result set...");
-            ResultSet rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance FROM CashiiDB");
+            rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance FROM CashiiDB");
 
             // Go through the result set and grab all columns
-            while (rs.next())
-            {
+            /* DEBUG USE ONLY
+            while (rs.next()) {
                 accountNum = rs.getInt("AccountNum");
                 accountPIN = rs.getInt("UserPIN");
                 lastName = rs.getString("LastName");
@@ -57,17 +60,46 @@ public class Database
                 accountBalance = rs.getDouble("UserBalance");
 
                 // DEBUG: Gets user info, however much there is.
-                System.out.print("Account Number: " +accountNum);
-                System.out.print(", User PIN: " +accountPIN);
-                System.out.print(", Name: " +firstName + " " +lastName);
-                System.out.println(", Balance: " +accountBalance);
+                // System.out.print("Account Number: " +accountNum);
+                // System.out.print(", User PIN: " +accountPIN);
+                // System.out.print(", Name: " +firstName + " " +lastName);
+                // System.out.println(", Balance: " +accountBalance);
             }
-        }
-        catch (SQLException e) {
+            */
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    void deposit(int id, int amount) {
+        int idCompare; // will contain the ID needed
 
+        // Look into the account number and user balance for the deposit
+        String sql = "SELECT AccountNum, UserBalance FROM CashiiDB";
+
+        try {
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idCompare = rs.getInt("AccountNum"); // grab the id to compare with after
+
+                // If the ID turns about to be the one that's needed, get the balance and add the amount needed
+                if (idCompare == id) {
+                    accountBalance = rs.getDouble("UserBalance");
+                    accountBalance += amount;
+                }
+            }
+
+            // DEBUG: What is it modifying?
+            System.out.print("ID: " + id);
+            System.out.println(", Balance: " + accountBalance);
+
+            // Run the operation to update the balance only for the user's account
+            sql = "UPDATE CashiiDB " + "SET UserBalance ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
+            st.executeUpdate(sql);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        accountBalance = 0; // clean up after messing with global vars
+    }
 }
 
