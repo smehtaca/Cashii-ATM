@@ -46,36 +46,21 @@ public class Database {
             // Create a statement (not for output)
             st = con.createStatement();
 
-            // Make a result set to be read through (contains all the account info)
-            System.out.println("Attempting to generate a result set...");
-            rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalance FROM CashiiDB");
-
-            // Go through the result set and grab all columns
-            /* DEBUG USE ONLY
-            while (rs.next()) {
-                accountNum = rs.getInt("AccountNum");
-                accountPIN = rs.getInt("UserPIN");
-                lastName = rs.getString("LastName");
-                firstName = rs.getString("FirstName");
-                accountBalance = rs.getDouble("UserBalance");
-
-                // DEBUG: Gets user info, however much there is.
-                // System.out.print("Account Number: " +accountNum);
-                // System.out.print(", User PIN: " +accountPIN);
-                // System.out.print(", Name: " +firstName + " " +lastName);
-                // System.out.println(", Balance: " +accountBalance);
-            }
-            */
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    void deposit(int id, int amount) {
+    void deposit(int id, int amount, int accountType) {
         int idCompare; // will contain the ID needed
+        String account;
+
+        // If the accountType is 0, then it's a Chequing account the user wants to deposit to, if it's 1 then
+        // it's savings
+        account = accountType == 0 ? "UserBalanceC" : "UserBalanceS";
 
         // Look into the account number and user balance for the deposit
-        String sql = "SELECT AccountNum, UserBalance FROM CashiiDB";
+        String sql = "SELECT AccountNum, " + account +" FROM CashiiDB2";
 
         try {
             rs = st.executeQuery(sql);
@@ -84,7 +69,7 @@ public class Database {
 
                 // If the ID turns about to be the one that's needed, get the balance and add the amount needed
                 if (idCompare == id) {
-                    accountBalance = rs.getDouble("UserBalance");
+                    accountBalance = rs.getDouble(account);
                     accountBalance += amount;
                 }
             }
@@ -94,7 +79,7 @@ public class Database {
             System.out.println(", Balance: " + accountBalance);
 
             // Run the operation to update the balance only for the user's account
-            sql = "UPDATE CashiiDB " + "SET UserBalance ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
+            sql = "UPDATE CashiiDB2 " + "SET "+ account +" ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
             st.executeUpdate(sql);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
