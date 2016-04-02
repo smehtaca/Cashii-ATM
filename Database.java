@@ -15,9 +15,6 @@ public class Database {
     static final String USER = "firstfrontier";
     static final String PASS = "aAqVDxs4G3";
 
-    int accountNum, accountPIN;
-    String firstName, lastName;
-    double accountBalance;
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -26,9 +23,10 @@ public class Database {
         connect();
     }
 
+    /**
+     * Connects to the database.
+     */
     void connect() {
-
-
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Driver is located in src/mysql-connector...
         } catch (ClassNotFoundException e) {
@@ -49,18 +47,26 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Connection established!");
     }
 
+    /**
+     * Deposits into an account of the user's choice
+     * @param id holds the user's account number
+     * @param amount holds the amount that is trying to be withdrawn
+     * @param accountType holds the account it's trying to withdraw from
+     */
     void deposit(int id, int amount, int accountType) {
         int idCompare; // will contain the ID needed
-        String account;
+        double accountBalance = 0;
+        String account; // 0 = chequing, 1 = savings
 
         // If the accountType is 0, then it's a Chequing account the user wants to deposit to, if it's 1 then
         // it's savings
         account = accountType == 0 ? "UserBalanceC" : "UserBalanceS";
 
         // Look into the account number and user balance for the deposit
-        String sql = "SELECT AccountNum, " + account +" FROM CashiiDB2";
+        String sql = "SELECT AccountNum, " + account + " FROM CashiiDB2";
 
         try {
             rs = st.executeQuery(sql);
@@ -71,20 +77,66 @@ public class Database {
                 if (idCompare == id) {
                     accountBalance = rs.getDouble(account);
                     accountBalance += amount;
+                    break;
                 }
             }
-
-            // DEBUG: What is it modifying?
-            System.out.print("ID: " + id);
-            System.out.println(", Balance: " + accountBalance);
-
             // Run the operation to update the balance only for the user's account
-            sql = "UPDATE CashiiDB2 " + "SET "+ account +" ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
-            st.executeUpdate(sql);
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
-        accountBalance = 0; // clean up after messing with global vars
+            updateAccount(id, accountBalance, account);
+        } catch (java.sql.SQLException e) {e.printStackTrace();}
+    }
+
+    /**
+     * Withdraws from the account after querying the database.
+     * @param id holds the user's account number
+     * @param amount holds the amount that is trying to be withdrawn
+     * @param accountType holds the account it's trying to withdraw from
+     * @return -1 if the user is trying to withdraw too much, 1 if the amount has been successfully withdrawn
+     */
+    int withdraw(int id, int amount, int accountType) {
+        int idCompare; // will contain the ID needed
+        double accountBalance = 0;
+        String account; // 0 = chequing, 1 = savings
+
+        // If the accountType is 0, then it's a Chequing account the user wants to deposit to, if it's 1 then
+        // it's savings
+        account = accountType == 0 ? "UserBalanceC" : "UserBalanceS";
+
+        // Look into the account number and user balance for the deposit
+        String sql = "SELECT AccountNum, " + account + " FROM CashiiDB2";
+
+        try {
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idCompare = rs.getInt("AccountNum"); // grab the id to compare with after
+
+                // If the ID turns about to be the one that's needed, get the balance and add the amount needed
+                if (idCompare == id) {
+                    accountBalance = rs.getDouble(account);
+                    if (accountBalance <= amount)
+                        return -1;
+                    else {
+                        accountBalance -= amount;
+                    }
+                }
+            }
+        updateAccount(id, accountBalance, account);
+        } catch (java.sql.SQLException e) {e.printStackTrace();}
+
+        return 1;
+    }
+
+    /**
+     * Updates either balance (chequing or savings) of the account.
+     * @param id holds the user's account number.
+     * @param accountBalance contains the new balance
+     * @param account contains the account type that is to be changed
+     */
+    void updateAccount(int id, double accountBalance, String account)
+    {
+        String sql;
+
+        sql = "UPDATE CashiiDB2 " + "SET " + account + " ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
+        try {st.executeUpdate(sql);} catch (SQLException e) { e.printStackTrace(); }
     }
 }
 
