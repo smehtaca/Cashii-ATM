@@ -12,13 +12,16 @@ body{
 
   text-align: center;
   margin: auto;
-  width: 60%;
   padding-top: 200px;
 }
 
 
-input {
+a {color:#FFFFFF;}      /* unvisited link */
+a:visited {color:#FFFFFF;}  /* visited link */
+a:hover {color:#FFFFFF;}  /* mouse over link */
+a:active {color:#FFFFFF;}  /* selected link */
 
+input {
   font-family: 'Karla', sans-serif;
   font-size: 20px;
 
