@@ -3,7 +3,7 @@ import java.sql.*;
 public class Database {
     // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
-    static String sql = null;
+    static String sql = " ";
 
     // SQL Database info (hosted externally)
     static final String DB_URL = "jdbc:mysql://firstfrontier.site.nfoservers.com:3306/firstfrontier_cashii";
@@ -127,8 +127,6 @@ public class Database {
      */
     void updateAccount(int id, double accountBalance, String account)
     {
-        String sql;
-
         sql = "UPDATE CashiiDB2 " + "SET " + account + " ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
         try {st.executeUpdate(sql);} catch (SQLException e) { e.printStackTrace(); }
     }
@@ -142,7 +140,7 @@ public class Database {
     static int auth(int accountNum, int accountPIN)
     {
         int accountCompare, PINCompare;
-
+        sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
                 try {
             rs = st.executeQuery(sql);
             while(rs.next()){
