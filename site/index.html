@@ -16,7 +16,7 @@
   <body>
 
     <script>
-    function myFunction() {
+    function myFunction(e) {
         var pass1 = document.getElementById("user").value;
         var pass2 = document.getElementById("pass").value;
         var ok = true;
@@ -64,12 +64,11 @@
       <div class="form">
           <input type="text" placeholder="Card Number" id = "user">
           <input type="password" placeholder="Password" id = "pass">
-          <form onsubmit="return myFunction()">
       </div>
 
 
       <div class"button">
-          <a href="html/main.html"><input type="submit" value="Submit"><span class="glyphicon glyphicon glyphicon-chevron-right"></span></a>
+          <a href="html/main.html"><span class="glyphicon glyphicon glyphicon-chevron-right" onclick="javascript:myFunction(true)"</span></a>
       </div>
 
     </div>
