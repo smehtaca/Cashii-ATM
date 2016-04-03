@@ -1,11 +1,5 @@
 import java.sql.*;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-/**
- * Created by aumka on 3/27/2016.
- */
 public class Database {
     // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -29,9 +23,7 @@ public class Database {
     void connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Driver is located in src/mysql-connector...
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        } catch (ClassNotFoundException e) {e.printStackTrace();}
 
         System.out.println("Connecting to database...");
 
@@ -44,9 +36,8 @@ public class Database {
             // Create a statement (not for output)
             st = con.createStatement();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {e.printStackTrace();}
+
         System.out.println("Connection established!");
     }
 
@@ -137,6 +128,30 @@ public class Database {
 
         sql = "UPDATE CashiiDB2 " + "SET " + account + " ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
         try {st.executeUpdate(sql);} catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    /**
+     * Authenticate the user.
+     * @param accountNum is inputted by the user
+     * @param accountPIN is inputted by the user as well
+     * @return 1 if successfully authenticated, -1 if it can't find anything or info is invalid.
+     */
+    int auth(int accountNum, int accountPIN)
+    {
+        int accountCompare, PINCompare;
+
+        String sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
+        try {
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                accountCompare = rs.getInt("AccountNum");
+                PINCompare = rs.getInt("UserPIN");
+
+                if (accountNum == accountCompare && accountPIN == PINCompare)
+                    return 1; // it found the pair, it's authed
+            }
+        } catch (java.sql.SQLException e) {e.printStackTrace();}
+        return -1; // it couldn't find anything, not authed
     }
 }
 
