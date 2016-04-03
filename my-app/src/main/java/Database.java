@@ -46,7 +46,7 @@ public class Database {
      * @param amount holds the amount that is trying to be withdrawn
      * @param accountType holds the account it's trying to withdraw from
      */
-    void deposit(int id, int amount, int accountType) {
+    int deposit(int id, int amount, int accountType) {
         int idCompare; // will contain the ID needed
         double accountBalance = 0;
         String account; // 0 = chequing, 1 = savings
@@ -69,10 +69,14 @@ public class Database {
                     accountBalance += amount;
                     break;
                 }
+                else
+                    return -1;
             }
             // Run the operation to update the balance only for the user's account
             updateAccount(id, accountBalance, account);
         } catch (java.sql.SQLException e) {e.printStackTrace();}
+        System.out.println("AMOUNT: "+accountBalance);
+        return 1;
     }
 
     /**

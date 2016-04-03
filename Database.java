@@ -3,7 +3,7 @@ import java.sql.*;
 public class Database {
     // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
-
+    static String sql;
     // SQL Database info (hosted externally)
     static final String DB_URL = "jdbc:mysql://firstfrontier.site.nfoservers.com:3306/firstfrontier_cashii";
     static final String USER = "firstfrontier";
@@ -138,7 +138,7 @@ public class Database {
     {
         int accountCompare, PINCompare;
 
-        String sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
+         sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
         try {
             rs = st.executeQuery(sql);
             while(rs.next()){
