@@ -5,5 +5,6 @@ public class Main {
         System.out.println("Hello World!");
         database = new Database();
         database.withdraw(987654321, 100, 1); // DEBUG
+        database.auth(987654321,1234);
     }
 }

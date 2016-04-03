@@ -37,8 +37,6 @@ public class Database {
             st = con.createStatement();
 
         } catch (SQLException e) {e.printStackTrace();}
-
-        System.out.println("Connection established!");
     }
 
     /**
@@ -148,10 +146,12 @@ public class Database {
                 PINCompare = rs.getInt("UserPIN");
 
                 if (accountNum == accountCompare && accountPIN == PINCompare)
-                    return 1; // it found the pair, it's authed
+                {System.out.println("User authentication successful!"); return 1; } // it found the pair, it's authed
             }
         } catch (java.sql.SQLException e) {e.printStackTrace();}
+        System.out.println("User authentication unsuccessful.");
         return -1; // it couldn't find anything, not authed
+
     }
 }
 
