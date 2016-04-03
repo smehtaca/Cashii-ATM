@@ -3,17 +3,14 @@ import java.sql.*;
 public class Database {
     // Driver info
     static final String DRIVER = "com.mysql.jdbc.Driver";
-    static int idCompare; // will contain the ID needed
-    static double accountBalance = 0;
-    static String sql;
-
+    static String sql = null;
 
     // SQL Database info (hosted externally)
     static final String DB_URL = "jdbc:mysql://firstfrontier.site.nfoservers.com:3306/firstfrontier_cashii";
     static final String USER = "firstfrontier";
     static final String PASS = "aAqVDxs4G3";
 
-    Connection con = null;
+    static Connection con = null;
     static Statement st = null;
     static ResultSet rs = null;
 
@@ -50,7 +47,8 @@ public class Database {
      * @param accountType holds the account it's trying to withdraw from
      */
     void deposit(int id, int amount, int accountType) {
-      
+        int idCompare; // will contain the ID needed
+        double accountBalance = 0;
         String account; // 0 = chequing, 1 = savings
 
         // If the accountType is 0, then it's a Chequing account the user wants to deposit to, if it's 1 then
@@ -58,7 +56,8 @@ public class Database {
         account = accountType == 0 ? "UserBalanceC" : "UserBalanceS";
 
         // Look into the account number and user balance for the deposit
-       
+        String sql = "SELECT AccountNum, " + account + " FROM CashiiDB2";
+
         try {
             rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -87,7 +86,7 @@ public class Database {
         int idCompare; // will contain the ID needed
         double accountBalance = 0;
         String account; // 0 = chequing, 1 = savings
-        
+
         // If the accountType is 0, then it's a Chequing account the user wants to deposit to, if it's 1 then
         // it's savings
         account = accountType == 0 ? "UserBalanceC" : "UserBalanceS";
@@ -140,8 +139,7 @@ public class Database {
     {
         int accountCompare, PINCompare;
 
-         sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
-        try {
+                try {
             rs = st.executeQuery(sql);
             while(rs.next()){
                 accountCompare = rs.getInt("AccountNum");
