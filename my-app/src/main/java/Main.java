@@ -39,7 +39,13 @@ public class Main {
               }
           });
 
-          
+          get("/accountprint/:uid/", new Route() {
+              public Object handle(Request request, Response response)
+              {
+                  int uid = Integer.parseInt(request.params(":uid"));
+                  return database.getAccountStatement(uid);
+              }
+          });
           
           
           

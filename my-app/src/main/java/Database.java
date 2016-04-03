@@ -153,7 +153,20 @@ public class Database {
         } catch (java.sql.SQLException e) {e.printStackTrace();}
         System.out.println("User authentication unsuccessful.");
         return -1; // it couldn't find anything, not authed
+    }
 
+    static String getAccountStatement(int accountNum)
+    {
+        int accountCompare;
+        try {
+            rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalanceC, UserBalanceS FROM CashiiDB2");
+            while (rs.next()) {
+                accountCompare = rs.getInt("AccountNum");
+                if (accountCompare == accountNum)
+                    return accountCompare + ", " + rs.getInt("UserPIN") + ", " + rs.getString("LastName") + ", " + rs.getString("FirstName") + ", " + rs.getDouble("UserBalanceC") + ", " +rs.getDouble("UserBalanceS");
+            }
+        } catch (java.sql.SQLException e) {e.printStackTrace();}
+        return "NOTFOUND";
     }
 }
 
