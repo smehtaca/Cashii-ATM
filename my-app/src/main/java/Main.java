@@ -29,6 +29,21 @@ public class Main {
               }
           });
 
+          get("/withdraw/:uid/:amount/:accountType", new Route() {
+              public Object handle(Request request, Response response)
+              {
+                  int uid = Integer.parseInt(request.params(":uid"));
+                  int amount = Integer.parseInt(request.params(":amount"));
+                  int accountType = Integer.parseInt(request.params(":accountType"));
+                  return database.withdraw(uid,amount,accountType);
+              }
+          });
+
+          
+          
+          
+          
+          
 	    }
 	  
 	  
