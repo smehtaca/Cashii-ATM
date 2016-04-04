@@ -29,36 +29,8 @@
         user.username = pass1;
         user.password = pass2;
 
-        alert("Username: " + user.username + "\nPassword: " + user.password);
+        window.location= "http://localhost:4567/login/"+pass1+"/"+pass2
 
-        window.location= "http://localhost:4567/login/"+pass1+"/"+pass2+"/"
-
-
-
-        /*
-        jsonfile.writeFile(file, user, function (err) {
-          console.error(err)
-        })
-        */
-
-        //localStorage.setItem('userStorage', JSON.stringify(user));
-
-        return ok;
-
-
-        /*
-        if (pass1 != pass2) {
-            //alert("Passwords Do not match");
-            //document.getElementById("pass").style.borderColor = "#E34234";
-            //document.getElementById("user").style.borderColor = "#E34234";
-            alert("Passwords don't match!");
-            ok = false;
-        }
-        else {
-            alert("Passwords Match!!!");
-        }
-        return ok;
-        */
     }
 
     </script>
@@ -71,12 +43,19 @@
       </div>
 
 
-      <div class"button">
-          <a href="html/main.html"><span class="glyphicon glyphicon glyphicon-chevron-right" onclick="javascript:myFunction(true)"</span></a>
+
+      <div class="button">
+          <!--<a href="html/main.html"><span class="glyphicon glyphicon glyphicon-chevron-right" onclick="javascript:myFunction(true)"</span></a>-->
           <span class="glyphicon glyphicon glyphicon-chevron-right" onclick="javascript:myFunction(true)"</span>
       </div>
 
     </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
   </body>
 </html>
