@@ -18,8 +18,7 @@ public class Main {
     public static int uid;
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Init the back-end database, SQL connections are made here
         final Database database = new Database();
 
