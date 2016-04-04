@@ -8,14 +8,22 @@ public class Main {
 	  public static void main(String[] args)
       {
 		  final Database database = new Database();
+          Spark.externalStaticFileLocation("/"); // temp fix, put site into root
+         // Spark.staticFileLocation("/"); // needs to be fixed by demo
 
-		  database.connect();
+          database.connect();
 
 	        get("/login/:uid/:pass", new Route() {
 	            public Object handle(Request request, Response response) {
 	            	int uid = Integer.parseInt(request.params(":uid"));
 	            	int pass = Integer.parseInt(request.params(":pass"));
-	                return database.auth(uid,pass);
+
+                    if (database.auth(uid,pass) == 1)
+                        response.redirect("/site/index.html");
+                    else
+                        return "Invalid password, please go back and try again!";
+
+                    return null;
 	            }
 	        });
 
@@ -43,6 +51,7 @@ public class Main {
               public Object handle(Request request, Response response)
               {
                   int uid = Integer.parseInt(request.params(":uid"));
+
                   return database.getAccountStatement(uid);
               }
           });
