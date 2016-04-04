@@ -11,3 +11,4 @@ Dev 2: Alex <br>
 Tester: Eric <br>
 
 
+Refer to my-app for backend and site for front-end code. 
