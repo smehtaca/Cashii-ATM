@@ -19,7 +19,7 @@ public class Main {
 	            	int pass = Integer.parseInt(request.params(":pass"));
 
                     if (database.auth(uid,pass) == 1)
-                        response.redirect("/site/index.html");
+                        response.redirect("/site/html/main.html");
                     else
                         return "Invalid password, please go back and try again!";
 
