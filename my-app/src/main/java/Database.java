@@ -113,7 +113,7 @@ public class Database {
                     }
                 }
             }
-        updateAccount(id, accountBalance, account);
+        updateAccount(id, accountBalance, account); // update command
         } catch (java.sql.SQLException e) {e.printStackTrace();}
 
         return 1;
@@ -127,6 +127,7 @@ public class Database {
      */
     void updateAccount(int id, double accountBalance, String account)
     {
+        // Update only the required keys
         sql = "UPDATE CashiiDB2 " + "SET " + account + " ='" + accountBalance + "' WHERE AccountNum in ('" + id + "')";
         try {st.executeUpdate(sql);} catch (SQLException e) { e.printStackTrace(); }
     }
@@ -139,10 +140,17 @@ public class Database {
      */
     static int auth(int accountNum, int accountPIN)
     {
-        int accountCompare, PINCompare;
+        int accountCompare, PINCompare; // need to compare user and password
+
+        // Select what is needed from the DB
         sql = "SELECT AccountNum, UserPIN FROM CashiiDB2";
-                try {
+
+        try {
+
+            // Run the select query
             rs = st.executeQuery(sql);
+
+            // Keep comparing till it finds what it needs
             while(rs.next()){
                 accountCompare = rs.getInt("AccountNum");
                 PINCompare = rs.getInt("UserPIN");
@@ -151,22 +159,31 @@ public class Database {
                 {System.out.println("User authentication successful!"); return 1; } // it found the pair, it's authed
             }
         } catch (java.sql.SQLException e) {e.printStackTrace();}
-        System.out.println("User authentication unsuccessful.");
+        System.out.println("User authentication unsuccessful."); // Debug dialogue
         return -1; // it couldn't find anything, not authed
     }
 
+    /**
+     * Returns an account statement to the user.
+     * @param accountNum so the SQL API knows what to look for
+     * @return HTML formatted output of the account statement
+     */
     static String getAccountStatement(int accountNum)
     {
-        int accountCompare;
+        int accountCompare; // for comparison
         try {
-            rs = st.executeQuery("SELECT AccountNum, UserPIN, LastName, FirstName, UserBalanceC, UserBalanceS FROM CashiiDB2");
+            // Select all the SQL columns needed to output a statement
+            rs = st.executeQuery("SELECT AccountNum, LastName, FirstName, UserBalanceC, UserBalanceS FROM CashiiDB2");
+
+            // Keep comparing till the if statement finds what it needs, then output
             while (rs.next()) {
                 accountCompare = rs.getInt("AccountNum");
                 if (accountCompare == accountNum)
-                    return accountCompare + ", " + rs.getInt("UserPIN") + ", " + rs.getString("LastName") + ", " + rs.getString("FirstName") + ", " + rs.getDouble("UserBalanceC") + ", " +rs.getDouble("UserBalanceS");
+                    return "<h1>" + rs.getString("FirstName") + " " + rs.getString("LastName") + "</h1>"  + "Account Number: " + rs.getInt("AccountNum")+ "<br> <p>Savings: $" + rs.getInt("UserBalanceS") + "<br>Chequing: $"+ rs.getInt("UserBalanceC") +"<p>";
+                    // accountCompare + ", " + rs.getInt("UserPIN") + ", \n" + rs.getString("LastName") + ", " + rs.getString("FirstName") + ", " + rs.getDouble("UserBalanceC") + ", " +rs.getDouble("UserBalanceS");
             }
         } catch (java.sql.SQLException e) {e.printStackTrace();}
-        return "NOTFOUND";
+        return "NOTFOUND"; // This should not happen in any circumstance
     }
 }
 
