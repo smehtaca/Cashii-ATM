@@ -5,9 +5,9 @@ public class Database {
     static final String DRIVER = "com.mysql.jdbc.Driver";
     static String sql;
     // SQL Database info (hosted externally)
-    static final String DB_URL = "jdbc:mysql://firstfrontier.site.nfoservers.com:3306/firstfrontier_cashii";
-    static final String USER = "firstfrontier";
-    static final String PASS = "aAqVDxs4G3";
+    static final String DB_URL = "***";
+    static final String USER = "***";
+    static final String PASS = "***";
 
     Connection con = null;
     Statement st = null;
